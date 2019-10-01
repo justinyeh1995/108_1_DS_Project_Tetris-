@@ -1,5 +1,5 @@
 # Introduction
---
+
 There are two ways to run the game 
 --- 
 1.
