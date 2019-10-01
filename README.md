@@ -1,6 +1,7 @@
 # Introduction
---
-There are two ways to run the game 
+
+ There are two ways to run this game 
+ 
 --- 
 1.
 - g++ Tetris.cpp Stack.cpp -o myTetris
