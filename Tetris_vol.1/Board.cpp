@@ -129,3 +129,22 @@ void Board::DeleteAnyLine(){
 		}
 	}
 }
+
+int** Board::getBoard(){
+	int r = row-4;
+	int** Board =new int*[r];
+	for (int i = 0; i < r; i++)
+	{
+		Board[i] =new int[col];
+	}
+	for (int i = 0; i < r; i++)
+	{
+		for (int j = 0; j < col; j++)
+		{
+			Board[i][j] = GameBoard[i+4][j];
+			cout<<Board[i][j];
+		}	
+		cout<<endl;
+	}
+	return Board;	
+}

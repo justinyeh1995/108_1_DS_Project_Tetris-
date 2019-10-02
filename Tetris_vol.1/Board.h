@@ -35,6 +35,7 @@ class Board{
 			}
 			return false;
 		};
+		int** getBoard();
 		void PrintBoard();
 		void PrintStack();
 		friend class Block;

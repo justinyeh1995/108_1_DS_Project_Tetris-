@@ -40,7 +40,17 @@ int main(){
 	// b.PrintStack();
 	// cout<<endl;
 	/* Output file "tetris.final" */
-    
-	//delete[] block;
+    ofstream outFile("tetris.final", ios::out);
+	int** board = b.getBoard();
+	for(int row = 0; row < b.getRow()-4; row++)
+	{
+		for (int col = 0; col < c; col++)
+		{
+			outFile << board[row][col];
+		}
+		outFile << endl;
+	}
+	outFile.close();
+
 	return 0;
 }

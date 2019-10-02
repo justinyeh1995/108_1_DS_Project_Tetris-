@@ -39,6 +39,7 @@ class Board{
 			}
 			return false;
 		};
+        int** getBoard();
 		void PrintBoard();
 		void PrintStack();
 		friend class Block;
@@ -171,6 +172,25 @@ void Board::DeleteAnyLine(){
 			DeleteLine_Naive(i);
 		}
 	}
+}
+
+int** Board::getBoard(){
+	int r = row-4;
+	int** Board =new int*[r];
+	for (int i = 0; i < r; i++)
+	{
+		Board[i] =new int[col];
+	}
+	for (int i = 0; i < r; i++)
+	{
+		for (int j = 0; j < col; j++)
+		{
+			Board[i][j] = GameBoard[i+4][j];
+			cout<<Board[i][j];
+		}	
+		cout<<endl;
+	}
+	return Board;	
 }
 
 /* Class Block */
@@ -425,7 +445,17 @@ int main(){
 	b.PrintStack();
 	cout<<endl;
 	/* Output file "tetris.final" */
-
-	//delete[] block;
+    ofstream outFile("tetris.final", ios::out);
+	int** board = b.getBoard();
+	for(int row = 0; row < b.getRow()-4; row++)
+	{
+		for (int col = 0; col < c; col++)
+		{
+			outFile << board[row][col];
+		}
+		outFile << endl;
+	}
+	outFile.close();
+    
 	return 0;
 }
