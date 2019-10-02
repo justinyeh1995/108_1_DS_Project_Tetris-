@@ -25,7 +25,7 @@ int Board::getPostionY(int col){
 }
 
 void Board::PrintBoard(){
-	for(int i = 0; i < this->row; i++){
+	for(int i = 4; i < this->row; i++){
 		for(int j = 0; j < this->col; j++){
 			cout<< GameBoard[i][j]<<" ";
 		}
@@ -104,7 +104,7 @@ void Board::DeleteLine_Naive (int pY){
 	// Update each Stack
 	for (int j = 0; j < this->col; j++){
 		if(!Stack[j].isEmpty()){
-		    int tmp = Stack[j].top();
+		  int tmp = Stack[j].top();
 			tmp++;
 			Stack[j].push(tmp);
 		}	
@@ -116,7 +116,7 @@ void Board::DeleteLine_Naive (int pY){
 }
 
 void Board::DeleteAnyLine(){
-	for(int i = 0; i < this->row; i++){
+	for(int i = 4; i < this->row; i++){
 		int fill = 0;
 		while(fill < this->col){
 			if(GameBoard[i][fill] == 0){

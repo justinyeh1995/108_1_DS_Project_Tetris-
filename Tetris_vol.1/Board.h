@@ -1,4 +1,5 @@
 #include "Stack.h"
+#include <iostream>
 class Board{
 	private:
 		int row, col;
@@ -6,7 +7,7 @@ class Board{
         int** GameBoard; 
 	public:
 		Board(){};
-		Board(int m , int n ):row(m),col(n){
+		Board(int m , int n ):row(m+4),col(n){
 			GameBoard = new int*[row];
 			for(int i = 0; i < row; i++){
 				 GameBoard[i] = new int[col];
@@ -28,7 +29,7 @@ class Board{
 		void DeleteAnyLine();
 		bool Terminate(){
             for(int i = 0; i < this->col; i++){
-				if(Stack[i].top() <= -1){
+				if(Stack[i].top() < 4){
 					return true;
 				}
 			}

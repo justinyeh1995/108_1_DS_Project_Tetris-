@@ -10,8 +10,9 @@ class Board{
         int** GameBoard; 
 	public:
 		Board(){};
-		Board(int m , int n ):row(m),col(n){
-			GameBoard = new int*[row];
+		Board(int m , int n ):row(m+4),col(n){
+			//row + 4 
+            GameBoard = new int*[row];
 			for(int i = 0; i < row; i++){
 				 GameBoard[i] = new int[col];
 			}
@@ -32,7 +33,7 @@ class Board{
 		void DeleteAnyLine();
 		bool Terminate(){
             for(int i = 0; i < this->col; i++){
-				if(Stack[i].top() <= -1){
+				if(Stack[i].top() < 4){
 					return true;
 				}
 			}
@@ -67,7 +68,7 @@ int Board::getPostionY(int col){
 }
 
 void Board::PrintBoard(){
-	for(int i = 0; i < this->row; i++){
+	for(int i = 4; i < this->row; i++){
 		for(int j = 0; j < this->col; j++){
 			cout<< GameBoard[i][j]<<" ";
 		}
@@ -158,7 +159,7 @@ void Board::DeleteLine_Naive (int pY){
 }
 
 void Board::DeleteAnyLine(){
-	for(int i = 0; i < this->row; i++){
+	for(int i = 4; i < this->row; i++){
 		int fill = 0;
 		while(fill < this->col){
 			if(GameBoard[i][fill] == 0){
