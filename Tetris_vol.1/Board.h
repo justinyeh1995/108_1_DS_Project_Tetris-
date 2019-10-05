@@ -29,7 +29,7 @@ class Board{
 		void DeleteAnyLine();
 		bool Terminate(){
             for(int i = 0; i < this->col; i++){
-				if(Stack[i].top() < 4){
+				if(Stack[i].top() < 3){
 					return true;
 				}
 			}
