@@ -428,7 +428,7 @@ int main(){
     string type;
     int x = 0;
     int idx = 1;
-    while (!file.eof()) {
+    while (!file.eof() && !b.Terminate()) {
     file >> type;
     if(type == "End")break;
     darray[idx].setString(type);
