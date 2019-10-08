@@ -172,6 +172,23 @@ void Board::DeleteAnyLine(){
 			DeleteLine_Naive(i);
 		}
 	}
+    /*
+    address case 
+    1 2
+    O 1 
+    */
+    for(int i = 4; i < this->row; i++){
+		int fill = 0;
+		while(fill < this->col){
+			if(GameBoard[i][fill] == 0){
+				break;
+			}
+			++fill;
+		}
+		if(fill == this->col){
+			DeleteLine_Naive(i);
+		}
+	}
 }
 
 int** Board::getBoard(){
@@ -258,14 +275,12 @@ int** Block::getBlock(string Type){
     //Type_array.find(Type);
     switch (idx){
     case 0:
-        //block = {0,0,0,0,0,0,0,0,1,1,1,0,0,1,0,0};
         for(int i = 0; i < 3; i++){
            block[2][i] = 1;
         }
         block[3][1] = 1;
         break;
     case 1:
-        //block = {{0,0,0,0},{0,1,0,0},{1,1,0,0},{0,1,0,0}};
         block[1][1] = 1;
         for(int i = 0; i < 2; i++){
            block[2][i] = 1;
