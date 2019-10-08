@@ -403,38 +403,16 @@ void Block::PrintBlock(){
     }
     cout<<endl;
 };
-/* File I/O */
-class Data{
-    private:
-        int r, c;
-        string Type;
-        int posx;
-    public:
-        Data(string T = "",int x = 1):Type(T),posx(x){}
-        string getType(){return this->Type;}
-        int getX(){return this->posx;}  
-        void setString(string Type){this->Type = Type;}
-        void setPosX(int posx){this->posx = posx;}
-        string getString(){return this->Type;}
-        int getPosX(){return this->posx;}
-		
-		void setR(int r){this->r = r;}
-        void setC(int c){this->c = c;}
-        int getR(){return this->r;}
-        int getC(){return this->c;}
-};
+
 int main(){
 	/* File I/O */
-	Data darray[1000];
 	ifstream file("tetris.data");
 	// address row and col initialization
 	int r, c;
 	file >> r;
-	darray[0].setR(r);
 	file >> c;
-	darray[0].setC(c);
 	/* Declare Board object b */ 
-	Board b(darray[0].getR(),darray[0].getC());
+    Board b(r,c);
 	//board initialization
 	b.Initialization();
 	/* Declare Block object block */
@@ -442,15 +420,11 @@ int main(){
 	/* Read (Type, posx) */
     string type;
     int x = 0;
-    int idx = 1;
     while (!file.eof() && !b.Terminate()) {
     file >> type;
     if(type == "End")break;
-    darray[idx].setString(type);
     file >> x;
-    darray[idx].setPosX(x);
-    b.UpdateBoard(block.getBlock(darray[idx].getString()), darray[idx].getPosX());
-    idx++;
+    b.UpdateBoard(block.getBlock(type),x);
     }
     file.close();
     /* Print output */
