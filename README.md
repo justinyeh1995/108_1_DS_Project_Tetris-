@@ -9,7 +9,7 @@
 - ./myTetris
 ---
 2.
-- g++ main.cpp Data.h Board.cpp Block.cpp Stack.cpp -o Tetris
+- g++ main.cpp Board.cpp Block.cpp Stack.cpp -o Tetris
 
 - ./Tetris
 ---
