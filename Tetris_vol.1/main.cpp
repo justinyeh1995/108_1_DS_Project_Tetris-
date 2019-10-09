@@ -32,7 +32,7 @@ int main(){
 	b.PrintStack();
 	cout<<endl;
 	/* Output file "tetris.final" */
-    ofstream outFile("tetris.final", ios::out);
+    ofstream outFile("tetris.output", ios::out);
 	int** board = b.getBoard();
 	for(int row = 0; row < b.getRow()-4; row++)
 	{
