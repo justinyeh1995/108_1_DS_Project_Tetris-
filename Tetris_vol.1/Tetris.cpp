@@ -40,8 +40,6 @@ class Board{
 			return false;
 		};
         int** getBoard();
-		void PrintBoard();
-		void PrintStack();
 		friend class Block;
 };
 
@@ -66,32 +64,13 @@ int Board::getPostionY(int col){
 		}
 	} 
 	return posy;
-}
-
-void Board::PrintBoard(){
-	for(int i = 4; i < this->row; i++){
-		for(int j = 0; j < this->col; j++){
-			cout<< GameBoard[i][j]<<" ";
-		}
-		cout<<endl;
-	}
-}
-
-void Board::PrintStack(){
-	for(int j = 0; j < this->col; j++){
-		cout<<Stack[j].top()<<" ";
-	}
-	cout<<endl;
-}
- 
+} 
 bool Board::CheckCollision(int** block,int posx, int posy){
 	for(int i = 0; i < 4; i++){
-		if((posy - i)>=0){
-			for(int j = 0; j < 4; j++){
-				// Search every layer
-				if(GameBoard[posy - i][posx-1 + j] == 1 && block[3-i][j] == 1 && posx-1 + j <= col-1) {
-					return true;
-				}
+		for(int j = 0; j < 4; j++){
+		    // Search every layer
+			if(GameBoard[posy - i][posx-1 + j] == 1 && block[3-i][j] == 1 && posx-1 + j <= col-1) {
+				return true;
 			}
 		}
 	}
@@ -100,13 +79,11 @@ bool Board::CheckCollision(int** block,int posx, int posy){
 
 void Board::UpdateBoard(int** block, int posx){
 	int posy = getPostionY(posx);
-	int k = posx-1;
 	/*
 	Move down till collide
 	*/
-	while(posy<getRow()-1){	
+	while(posy<getRow()-1 && !CheckCollision(block,posx,posy)){	
 		posy++;
-	 	if(CheckCollision(block,posx,posy))break;
 	}
 	/*
 	if it's now collide, move up till it's not!
@@ -118,20 +95,19 @@ void Board::UpdateBoard(int** block, int posx){
 	Update GameBoard & Stack
 	*/
 	for(int i = 0; i < 4; i++){
-		if((posy - i)>=0){
-			for(int j = 0; j < 4; j++){
-				if( posx-1 + j <= col-1){
-					//Update the cell that are 1 in block 
-					if(block[3-i][j] == 1){
-						GameBoard[posy - i][posx-1 + j] = block[3-i][j];
-					}
-					//Update each stack 
-					if(GameBoard[posy - i][posx-1 + j] == 1 ){
-						//UpdateStack(posy);
-						Stack[posx-1 + j].push(posy - i-1);
-					}	
-				}
-			}
+		for(int j = 0; j < 4; j++){
+			//Update the cell that are 1 in block 
+			if( posx-1 + j <= col-1)
+            {
+                if(block[3-i][j] == 1){
+			    GameBoard[posy - i][posx-1 + j] = block[3-i][j];
+			    }
+    		    //Update each stack 
+			    if(GameBoard[posy - i][posx-1 + j] == 1 ){
+            	//UpdateStack(posy);
+				Stack[posx-1 + j].push(posy - i-1);
+			    }	
+            }
 		}
 	}
 	DeleteAnyLine();
@@ -162,10 +138,7 @@ void Board::DeleteLine_Naive (int pY){
 void Board::DeleteAnyLine(){
 	for(int i = 4; i < this->row; i++){
 		int fill = 0;
-		while(fill < this->col){
-			if(GameBoard[i][fill] == 0){
-				break;
-			}
+		while(fill < this->col && GameBoard[i][fill] != 0){
 			++fill;
 		}
 		if(fill == this->col){
@@ -179,10 +152,7 @@ void Board::DeleteAnyLine(){
     */
     for(int i = 4; i < this->row; i++){
 		int fill = 0;
-		while(fill < this->col){
-			if(GameBoard[i][fill] == 0){
-				break;
-			}
+		while(fill < this->col && GameBoard[i][fill] != 0){
 			++fill;
 		}
 		if(fill == this->col){
@@ -243,7 +213,6 @@ class Block{
         void InitializeBlock(int** block);
         int** getBlock(string Type);
         int getElementIndex(string Type);
-        void PrintBlock();
 				friend class Board;
 };
 
@@ -394,19 +363,9 @@ int** Block::getBlock(string Type){
 	return block;
 }
 
-void Block::PrintBlock(){
-    for(int i = 0; i < 4; i++){
-	    for(int j = 0; j < 4; j++){
-		    cout<<block[i][j]<<" ";
-        }
-        cout<<endl;
-    }
-    cout<<endl;
-};
-
 int main(){
 	/* File I/O */
-	ifstream file("tetris.data");
+	ifstream file("Tetris.data");
 	// address row and col initialization
 	int r, c;
 	file >> r;
@@ -424,17 +383,12 @@ int main(){
     file >> type;
     if(type == "End")break;
     file >> x;
-    b.UpdateBoard(block.getBlock(type),x);
+    if(x<=c && x >= 1)
+        b.UpdateBoard(block.getBlock(type),x);
     }
     file.close();
-    /* Print output */
-	cout<<endl;
-	b.PrintBoard();
-	cout<<endl;
-	b.PrintStack();
-	cout<<endl;
 	/* Output file "tetris.final" */
-    ofstream outFile("tetris.output", ios::out);
+    ofstream outFile("Tetris.final", ios::out);
 	int** board = b.getBoard();
 	for(int row = 0; row < b.getRow()-4; row++)
 	{
@@ -445,6 +399,5 @@ int main(){
 		outFile << endl;
 	}
 	outFile.close();
-    
 	return 0;
 }
