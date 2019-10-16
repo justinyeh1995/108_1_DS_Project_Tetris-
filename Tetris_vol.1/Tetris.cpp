@@ -28,7 +28,7 @@ class Board{
 		void UpdateStack(int posy);
 		void UpdateBoard(int** block, int posx);
 		bool CheckCollision(int** block,int posx,int posy);
-		bool IsOverlap(int** block,int posx,int posy);
+		bool IsFilled();
 		void DeleteLine_Naive(int row_to_delete);
 		void DeleteAnyLine();
 		bool Terminate(){
@@ -110,8 +110,12 @@ void Board::UpdateBoard(int** block, int posx){
             }
 		}
 	}
-	DeleteAnyLine();
+	while(IsFilled()){
+        DeleteAnyLine();
+    }
 }
+
+
 //Naive Delete
 void Board::DeleteLine_Naive (int pY){
     // Moves all the upper lines one row down
@@ -135,22 +139,21 @@ void Board::DeleteLine_Naive (int pY){
 	}   
 }
 
-void Board::DeleteAnyLine(){
-	for(int i = 4; i < this->row; i++){
-		int fill = 0;
-		while(fill < this->col && GameBoard[i][fill] != 0){
+bool Board::IsFilled(){
+    for(int i = 4; i < this->row;i++){
+        int fill = 0;
+        while(fill < this->col && GameBoard[i][fill] != 0){
 			++fill;
 		}
-		if(fill == this->col){
-			DeleteLine_Naive(i);
-		}
-	}
-    /*
-    address case 
-    1 2
-    O 1 
-    */
-    for(int i = 4; i < this->row; i++){
+        if(fill == this->col){
+            return true;
+        }
+    }
+    return false;
+}
+
+void Board::DeleteAnyLine(){
+	for(int i = 4; i < this->row; i++){
 		int fill = 0;
 		while(fill < this->col && GameBoard[i][fill] != 0){
 			++fill;

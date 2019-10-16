@@ -24,7 +24,7 @@ class Board{
 		void UpdateStack(int posy);
 		void UpdateBoard(int** block, int posx);
 		bool CheckCollision(int** block,int posx,int posy);
-		bool IsOverlap(int** block,int posx,int posy);
+		bool IsFilled();
 		void DeleteLine_Naive(int row_to_delete);
 		void DeleteAnyLine();
 		bool Terminate(){

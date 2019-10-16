@@ -90,7 +90,9 @@ void Board::UpdateBoard(int** block, int posx){
 			}
 		}
 	}
-	DeleteAnyLine();
+	while(IsFilled()){
+        DeleteAnyLine();
+    }
 }
 //Naive Delete
 void Board::DeleteLine_Naive (int pY){
@@ -113,6 +115,19 @@ void Board::DeleteLine_Naive (int pY){
 	for(int i = 0; i < this->col; i++){
 		GameBoard[0][i] = 0;
 	}   
+}
+
+bool Board::IsFilled(){
+    for(int i = 4; i < this->row;i++){
+        int fill = 0;
+        while(fill < this->col && GameBoard[i][fill] != 0){
+			++fill;
+		}
+        if(fill == this->col){
+            return true;
+        }
+    }
+    return false;
 }
 
 void Board::DeleteAnyLine(){
