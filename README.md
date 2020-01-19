@@ -1,15 +1,10 @@
 # Introduction
 
- There are two ways to run this game 
+ Command to run this game in the terminal 
  
 --- 
-1.
 - g++ Tetris.cpp Stack.cpp -o myTetris
 
 - ./myTetris
 ---
-2.
-- g++ main.cpp Board.cpp Block.cpp Stack.cpp -o Tetris
 
-- ./Tetris
----

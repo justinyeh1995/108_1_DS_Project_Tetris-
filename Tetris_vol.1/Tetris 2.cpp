@@ -113,7 +113,6 @@ void Board::UpdateBoard(int** block, int posx){
 	while(IsFilled()){
         DeleteAnyLine();
     }
-    // DeleteAnyLine();
 }
 
 
@@ -391,8 +390,8 @@ int main(){
         b.UpdateBoard(block.getBlock(type),x);
     }
     file.close();
-	/* Output file "tetris.final" */
-    ofstream outFile("Tetris.final", ios::out);
+	/* Output file "tetris.output" */
+    ofstream outFile("Tetris.output", ios::out);
 	int** board = b.getBoard();
 	for(int row = 0; row < b.getRow()-4; row++)
 	{
